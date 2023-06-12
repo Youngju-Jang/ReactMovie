@@ -9,39 +9,19 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
         const root = document.getElementById("root");
-
-        // component첫번째 글짜 : 대문자!!! 소문자로 하면 Html태그로 인식함
-        function Title() {
-            return (<h3 id="title" onMouseEnter={() => console.log("mouse enter")} >
-                        "Hello I'am span"
-                    </h3>);
-        };
-        /*
-        const h3 = React.createElement(
-                "h3", 
-                {
-                    id: "sexy-span", 
-                    style:{color: "red"},
-                    onMouseEnter : () => console.log("mouse enter")
-                }, 
-                "Hello I'am span"
-            );
-        */
-       const Button = () => (
-       <button 
-            style={{
-                backgroundColor : "tomato",
-            }}
-            onClick= {() => console.log("i'm clicked")} 
-        >
-        Click me </button>
-        );
-        // const container = React.createElement("div", null, [Title, Button]);
-        const Container = () => (<div>
-                            <Title/> 
-                            <Button/>
-                        </div>);
-        ReactDOM.render(<Container/>, root);
+        const App = () => {
+            const [counter, setCounter] = React.useState(0);
+            const onClick = () =>{
+                // setCounter(counter+1);
+                setCounter(i => i+1);
+            }
+            return (
+            <div>
+                <h3 >Total click: {counter}</h3>
+                <button onClick={onClick}>Click me </button>
+            </div>
+        )};
+        ReactDOM.render(<App/>, root);
     </script>
 </html>
 
