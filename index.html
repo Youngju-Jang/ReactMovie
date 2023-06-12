@@ -11,106 +11,33 @@
 <!-- 브라우저에서 jsx코드 이해시키기용  -->
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <script type="text/babel">
-  function MinutesToHours() {
-    const [amount, setAmount] = React.useState();
-    const [inverted, setInvert] = React.useState(false);
-    const onChange = (e) => {
-      setAmount(e.target.value);
-    };
-    const reset = () => setAmount(0);
-    const onInvert = () => {
-      reset();
-      setInvert((current) => !current);
-    };
+  function Btn({ text, onClick }) {
+    console.log({ text }, "was render");
     return (
-      <div>
-        <div>
-          <label htmlFor="minutes">Minutes</label>
-          <input
-            value={inverted ? amount * 60 : amount}
-            id="minutes"
-            placeholder="Minutes"
-            type="number"
-            onChange={onChange}
-            disabled={inverted}
-          />
-        </div>
-        <div>
-          <label htmlFor="hours">Hours</label>
-          <input
-            value={inverted ? amount : Math.round(amount / 60)}
-            id="hours"
-            placeholder="Hours"
-            type="number"
-            onChange={onChange}
-            disabled={!inverted}
-          />
-        </div>
-        <button onClick={reset}>Reset</button>
-        <button onClick={onInvert}>{inverted ? "Turn back" : "Invert"}</button>
-      </div>
+      <button
+        onClick={onClick}
+        style={{
+          backgroundColor: "tomato",
+          color: "white",
+          padding: "10px 20px",
+          borderRadius: 10,
+          border: 0,
+          fontSize: 16,
+        }}
+      >
+        {text}
+      </button>
     );
   }
-  function KmToMiles() {
-    const [amount, setAmount] = React.useState();
-    const [inverted, setInvert] = React.useState(false);
-    function onChange(e) {
-      setAmount(e.target.value);
-    }
-    const reset = () => {
-      setAmount(0);
-    };
-    const onInvert = () => {
-      reset();
-      setInvert((current) => !current);
-    };
-    return (
-      <div>
-        <div>
-          <label htmlFor="km">KM</label>
-          <input
-            value={!inverted ? amount : Math.round(amount / 0.62)}
-            id="km"
-            placeholder="km"
-            type="number"
-            onChange={onChange}
-            disabled={inverted}
-          />
-        </div>
-        <div>
-          <label htmlFor="mile">MILE</label>
-          <input
-            value={inverted ? amount : Math.round(amount * 0.62)}
-            id="mile"
-            placeholder="mile"
-            type="number"
-            onChange={onChange}
-            disabled={!inverted}
-          />
-        </div>
-        <button onClick={reset}>Reset</button>
-        <button onClick={onInvert}>{inverted ? "Turn back" : "Invert"}</button>
-      </div>
-    );
-  }
-  function App() {
-    const [index, setIndex] = React.useState("xx");
-    const onSelect = (e) => {
-      setIndex(e.target.value);
-    };
+  const MemorizedBtn = React.memo(Btn);
 
+  function App() {
+    const [value, setValue] = React.useState("Save Changes");
+    const changeValue = () => setValue("Revert Changes");
     return (
       <div>
-        <h1 className="hi">Super Converter</h1>
-        <select value={index} onChange={onSelect}>
-          <option value="xx">select your units</option>
-          <option value="0">Minutes & Hours</option>
-          <option value="1">Km & Miles</option>
-        </select>
-        <hr />
-        {index === "xx" ? "Please select your units" : null}
-        {index === "0" ? <MinutesToHours /> : null}
-        {index === "1" ? <KmToMiles /> : null}
+        <MemorizedBtn text={value} onClick={changeValue} />
+        <MemorizedBtn text="Continue" />
       </div>
     );
   }
