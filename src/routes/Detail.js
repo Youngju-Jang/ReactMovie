@@ -19,7 +19,7 @@ function Detail() {
       <h2>{movie.title}</h2>
       <p>{movie.summary}</p>
       <ul>
-        {console.log(movie.genres)}
+        {console.log(movie.genre)}
         {/* {movie.genres.map((g) => (
           <li key={g}>{g}</li>
         ))} */}
